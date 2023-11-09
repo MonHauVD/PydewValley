@@ -103,6 +103,9 @@ class Tree(Generic):
 			random_apple.kill()
 			self.health += 1
 
+	def heal(self):
+		self.health += 1
+
 	def check_death(self):
 		if self.health <= 0:
 			Particle(self.rect.topleft, self.image, self.groups()[0], LAYERS['fruit'], 300)

@@ -148,6 +148,7 @@ class Level:
 				for apple in tree.apple_sprites.sprites():
 					apple.kill()
 				tree.create_fruit()
+				tree.heal()
 		except:
 			print("Loi khong truy cap vao lop Tree.apple_sprites.sprites()")
 
