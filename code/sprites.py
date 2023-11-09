@@ -106,7 +106,8 @@ class Tree(Generic):
 			self.health += 1
 
 	def heal(self):
-		self.health += 1
+		if (self.health < 5):
+			self.health += 1
 
 	def check_death(self):
 		if self.health <= 0:
