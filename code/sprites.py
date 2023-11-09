@@ -73,9 +73,10 @@ class Tree(Generic):
 		self.stump_surf = pygame.image.load(stump_path).convert_alpha()
 
 		# apples
+		self.apple_sprites = pygame.sprite.Group()
+		self.apple_sprites = pygame.sprite.Group()
 		self.apple_surf = pygame.image.load('../graphics/fruit/apple.png')
 		self.apple_pos = APPLE_POS[name]
-		self.apple_sprites = pygame.sprite.Group()
 		[self.all_sprites2, self.collision_sprites2, self.tree_sprites2] = groups
 		self.create_fruit()
 
@@ -121,6 +122,7 @@ class Tree(Generic):
 			self.check_death()
 
 	def create_fruit(self):
+		self.apple_sprites = pygame.sprite.Group()
 		for pos in self.apple_pos:
 			if randint(0,10) < 2:
 				x = pos[0] + self.rect.left
@@ -128,6 +130,6 @@ class Tree(Generic):
 				Generic(
 					pos = (x,y), 
 					surf = self.apple_surf, 
-					# groups = [self.apple_sprites,self.groups()[1]],
+					# groups = [self.apple_sprites,self.groups()[0]],
 					groups = [self.all_sprites2, self.apple_sprites, self.groups()[0]],
 					z = LAYERS['fruit'])
