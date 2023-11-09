@@ -143,15 +143,18 @@ class Level:
 			self.soil_layer.water_all()
 
 		# apples on the trees
-		try:
+		# try:
 			for tree in self.tree_sprites.sprites():
-				for apple in tree.apple_sprites.sprites():
-					apple.kill()
-				if (tree.health > 0):
-					tree.create_fruit()
-					tree.heal()
-		except:
-			print("Loi khong truy cap vao lop Tree.apple_sprites.sprites()")
+				try:
+					my_apple_sprites = tree.get_apple_sprites()
+					for apple in my_apple_sprites:
+						apple.kill()
+					if (tree.health > 0):
+						tree.create_fruit()
+						tree.heal()
+				except:
+					# print("Loi khong truy cap vao lop Tree.apple_sprites.sprites()")
+					print("Loi 'Generic' object has no attribute 'get_apple_sprites'")
 
 
 		# sky

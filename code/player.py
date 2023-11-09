@@ -77,7 +77,8 @@ class Player(pygame.sprite.Sprite):
 			for tree in self.tree_sprites.sprites():
 				if tree.rect.collidepoint(self.target_pos):
 					try:
-						tree.damage()
+						if (tree.health > 0):
+							tree.damage()
 					except:
 						print("Loi 'Particle' object has no attribute 'damage'")
 		
