@@ -115,8 +115,10 @@ class Level:
 			z = LAYERS['ground'])
 
 	def player_add(self,item):
-
-		self.player.item_inventory[item] += randint(1, 5)
+		if(item == "apple"):
+			self.player.item_inventory[item] += 1
+		else:
+			self.player.item_inventory[item] += randint(1, 5)
 		if (item == "corn" or item == "tomato"):
 			self.player.seed_inventory[item] += randint(1, 3)
 		self.success.play()
