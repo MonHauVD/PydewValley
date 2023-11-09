@@ -47,7 +47,7 @@ class Level:
 		self.success = pygame.mixer.Sound('../audio/success.wav')
 		self.success.set_volume(0.3)
 		self.music = pygame.mixer.Sound('../audio/music.mp3')
-		self.music.set_volume(0.2)
+		self.music.set_volume(0.3)
 		self.music.play(loops = -1)
 
 	def setup(self):
@@ -116,7 +116,9 @@ class Level:
 
 	def player_add(self,item):
 
-		self.player.item_inventory[item] += 1
+		self.player.item_inventory[item] += randint(1, 5)
+		if (item == "corn" or item == "tomato"):
+			self.player.seed_inventory[item] += randint(1, 3)
 		self.success.play()
 
 	def toggle_shop(self):
@@ -139,10 +141,14 @@ class Level:
 			self.soil_layer.water_all()
 
 		# apples on the trees
-		for tree in self.tree_sprites.sprites():
-			for apple in tree.apple_sprites.sprites():
-				apple.kill()
-			tree.create_fruit()
+		try:
+			for tree in self.tree_sprites.sprites():
+				for apple in tree.apple_sprites.sprites():
+					apple.kill()
+				tree.create_fruit()
+		except:
+			print("Loi khong truy cap vao lop Tree.apple_sprites.sprites()")
+
 
 		# sky
 		self.sky.start_color = [255,255,255]
@@ -169,8 +175,6 @@ class Level:
 			self.all_sprites.update(dt)
 			self.plant_collision()
 
-		if self.inventory_active:
-			self.invenMenu.update()
 		# weather
 		self.overlay.display()
 		if self.raining and not self.shop_active:
@@ -180,6 +184,10 @@ class Level:
 		# transition overlay
 		if self.player.sleep:
 			self.transition.play()
+
+		# inventory
+		if self.inventory_active:
+			self.invenMenu.update()
 
 class CameraGroup(pygame.sprite.Group):
 	def __init__(self):

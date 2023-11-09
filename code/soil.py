@@ -88,30 +88,6 @@ class SoilLayer:
 		for x, y, _ in load_pygame('../data/map.tmx').get_layer_by_name('Farmable').tiles():
 			self.grid[y][x].append('F')
 
-	def save_soil_grid(self):
-		with open('../save/soil_save.txt', 'w') as soil_save:
-			json.dump(self.grid, soil_save)
-		# with open('../save/sprites_save.txt', 'w') as sprites_save:
-		# 	# sprites = {"all": self.all_sprites,
-		# 	#   			"collision": self.collision_sprites,
-		# 	# 			"soil": self.soil_sprites,
-		# 	# 			"water": self.water_sprites,
-		# 	# 			"plant": self.plant_sprites}
-
-		# 	self.image = surf
-		# 	self.rect = self.image.get_rect(topleft = pos)
-		# 	self.z = LAYERS['soil']
-		# 	json.dump(sprites, sprites_save)
-
-		# pygame.image.save(self.soil_sprites , '../save/sprites_soil_save.txt')
-	
-	def load_soil_grid(self):
-		with open('../save/soil_save.txt') as soil_save:
-			self.grid = json.load(soil_save)
-		self.create_soil_tiles()
-
-		# self.soil_sprites = pygame.image.load('../save/sprites_soil_save.txt')
-
 	def create_hit_rects(self):
 		self.hit_rects = []
 		for index_row, row in enumerate(self.grid):
@@ -121,6 +97,15 @@ class SoilLayer:
 					y = index_row * TILE_SIZE
 					rect = pygame.Rect(x,y,TILE_SIZE, TILE_SIZE)
 					self.hit_rects.append(rect)
+
+	def save_soil_grid(self):
+		with open('../save/soil_save.txt', 'w') as soil_save:
+			json.dump(self.grid, soil_save)
+
+	def load_soil_grid(self):
+		with open('../save/soil_save.txt') as soil_save:
+			self.grid = json.load(soil_save)
+		self.create_soil_tiles()
 
 	def get_hit(self, point):
 		for rect in self.hit_rects:
@@ -177,18 +162,20 @@ class SoilLayer:
 		return is_watered
 
 	def plant_seed(self, target_pos, seed):
+		planted_Flag = False
 		for soil_sprite in self.soil_sprites.sprites():
 			if soil_sprite.rect.collidepoint(target_pos):
 				self.plant_sound.play()
+
 				x = soil_sprite.rect.x // TILE_SIZE
 				y = soil_sprite.rect.y // TILE_SIZE
+
 				if 'P' not in self.grid[y][x]:
 					self.grid[y][x].append('P')
 					Plant(seed, [self.all_sprites, self.plant_sprites, self.collision_sprites], soil_sprite, self.check_watered)
-					return True
-				return False
-		return False
-
+					planted_Flag = True
+		return planted_Flag
+	
 	def update_plants(self):
 		for plant in self.plant_sprites.sprites():
 			plant.grow()

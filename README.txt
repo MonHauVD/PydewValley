@@ -23,3 +23,6 @@ Mua hoặc bán hàng trong menu		e
 Xem kho đồ (Inventory)			i (ấn giữ)
 Lưu game				k
 Load game				l
+
+//Note:
+.old là phiên bản cũ bị lỗi

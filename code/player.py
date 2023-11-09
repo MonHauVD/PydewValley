@@ -76,7 +76,10 @@ class Player(pygame.sprite.Sprite):
 		if self.selected_tool == 'axe':
 			for tree in self.tree_sprites.sprites():
 				if tree.rect.collidepoint(self.target_pos):
-					tree.damage()
+					try:
+						tree.damage()
+					except:
+						print("Loi 'Particle' object has no attribute 'damage'")
 		
 		if self.selected_tool == 'water':
 			self.soil_layer.water(self.target_pos)
@@ -259,5 +262,3 @@ class Player(pygame.sprite.Sprite):
 			self.seed_inventory = saved_inventory["seed"]
 			self.money = saved_inventory["money"]
 		self.soil_layer.load_soil_grid()
-
-

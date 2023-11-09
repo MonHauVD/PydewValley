@@ -101,6 +101,7 @@ class Tree(Generic):
 				z = LAYERS['fruit'])
 			self.player_add('apple')
 			random_apple.kill()
+			self.health += 1
 
 	def check_death(self):
 		if self.health <= 0:
