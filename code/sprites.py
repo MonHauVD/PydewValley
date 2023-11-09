@@ -89,21 +89,21 @@ class Tree(Generic):
 		
 		# damaging the tree
 		self.health -= 1
-
-		# play sound
-		self.axe_sound.play()
-
+		
 		# remove an apple
-		if len(self.apple_sprites.sprites()) > 0:
-			random_apple = choice(self.apple_sprites.sprites())
-			Particle(
-				pos = random_apple.rect.topleft,
-				surf = random_apple.image, 
-				groups = self.groups()[0], 
-				z = LAYERS['fruit'])
-			self.player_add('apple')
-			random_apple.kill()
-			self.health += 1
+		if (self.health + 1 > 0):
+			# play sound
+			self.axe_sound.play()
+			if len(self.apple_sprites.sprites()) > 0:
+				random_apple = choice(self.apple_sprites.sprites())
+				Particle(
+					pos = random_apple.rect.topleft,
+					surf = random_apple.image, 
+					groups = self.groups()[0], 
+					z = LAYERS['fruit'])
+				self.player_add('apple')
+				random_apple.kill()
+				self.health += 1
 
 	def heal(self):
 		if (self.health < 5):
