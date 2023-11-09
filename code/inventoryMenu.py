@@ -17,6 +17,8 @@ class InventoryMenu:
 		self.padding = 8
 
 		# entries
+		self.optionsItem = list(self.player.item_inventory.keys())
+		self.optionsSeed = list(self.player.seed_inventory.keys())
 		self.options = list(self.player.item_inventory.keys()) + list(self.player.seed_inventory.keys())
 		self.sell_border = len(self.player.item_inventory) - 1
 		self.setup()
@@ -38,8 +40,18 @@ class InventoryMenu:
 		self.text_surfs = []
 		self.total_height = 0
 
-		for item in self.options:
+		# for item in self.options:
+		# 	text_surf = self.font.render(item, False, 'Black')
+		# 	self.text_surfs.append(text_surf)
+		# 	self.total_height += text_surf.get_height() + (self.padding * 2)
+
+		for item in self.optionsItem:
 			text_surf = self.font.render(item, False, 'Black')
+			self.text_surfs.append(text_surf)
+			self.total_height += text_surf.get_height() + (self.padding * 2)
+
+		for item in self.optionsSeed:
+			text_surf = self.font.render("Seed " + item, False, 'Black')
 			self.text_surfs.append(text_surf)
 			self.total_height += text_surf.get_height() + (self.padding * 2)
 
