@@ -76,6 +76,7 @@ class Tree(Generic):
 		self.apple_surf = pygame.image.load('../graphics/fruit/apple.png')
 		self.apple_pos = APPLE_POS[name]
 		self.apple_sprites = pygame.sprite.Group()
+		[self.all_sprites2, self.collision_sprites2, self.tree_sprites2] = groups
 		self.create_fruit()
 
 		self.player_add = player_add
@@ -127,5 +128,6 @@ class Tree(Generic):
 				Generic(
 					pos = (x,y), 
 					surf = self.apple_surf, 
-					groups = [self.apple_sprites,self.groups()[0]],
+					# groups = [self.apple_sprites,self.groups()[1]],
+					groups = [self.all_sprites2, self.groups()[0]],
 					z = LAYERS['fruit'])
