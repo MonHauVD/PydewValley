@@ -70,7 +70,6 @@ class InventoryMenu:
 		if not keys[pygame.KMOD_NONE]:
 			self.inventory_menu()			
 	
-
 		# clamo the values
 		if self.index < 0:
 			self.index = len(self.options) - 1
