@@ -75,10 +75,9 @@ class MainMenu:
                     if event.key == pygame.K_RIGHT:
                         self.volume += 4
                         self.timer.activate()
-
+                
                 if self.index == 1:
                     if event.key == pygame.K_SPACE:
-                        self.timer.activate()
                         pygame.quit()
                         sys.exit()
 
