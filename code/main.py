@@ -19,7 +19,7 @@ class Game:
   
 			dt = self.clock.tick() / 1000
 			self.level.run(dt)
-			pygame.display.update()
+		pygame.display.update()
 
 if __name__ == '__main__':
 	game = Game()
