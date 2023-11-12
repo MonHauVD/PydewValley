@@ -89,6 +89,7 @@ class MainMenu:
 						self.volume = 100
 					self.setVolume()
 					self.timer.activate()
+					
 			# Save game
 			if self.index == 1:
 				if keys[pygame.K_ESCAPE] or keys[pygame.K_e]:

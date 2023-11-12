@@ -25,6 +25,9 @@ Mua hoặc bán hàng trong menu		            e
 Xem kho đồ (Inventory)			                i (ấn giữ)
 Lưu game				                            k
 Load game				                            l
+Mở menu                 m
+Chọn                    space || e
+Thoát menu              esc
 
 
 This project is developed on the project platform of https://github.com/clear-code-projects/PyDew-Valley

@@ -23,6 +23,9 @@ Mua hoặc bán hàng trong menu		e
 Xem kho đồ (Inventory)			i (ấn giữ)
 Lưu game				k
 Load game				l
+Mở menu                 m
+Chọn                    space || e
+Thoát menu              esc
 
 //Note:
 .old là phiên bản cũ bị lỗi
