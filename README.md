@@ -31,3 +31,5 @@ Thoát menu              esc
 
 
 This project is developed on the project platform of https://github.com/clear-code-projects/PyDew-Valley
+
+Music from Stardew Valley OST - Stardew Valley Overture
