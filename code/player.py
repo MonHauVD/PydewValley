@@ -6,7 +6,7 @@ from timer import Timer
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, group, collision_sprites, tree_sprites, interaction, soil_layer, toggle_shop, inventory_show, menu_show):
+    def __init__(self, pos, group, collision_sprites, tree_sprites, interaction, soil_layer, toggle_shop, inventory_show, menu_show, levelSetup):
         super().__init__(group)
 
         self.import_assets()
@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animations[self.status][self.frame_index]
         self.rect = self.image.get_rect(center=pos)
         self.z = LAYERS['main']
+        self.levelSetup = levelSetup
 
         # movement attributes
         self.direction = pygame.math.Vector2()

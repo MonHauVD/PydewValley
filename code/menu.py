@@ -71,15 +71,15 @@ class Menu:
 			self.toggle_menu()
 
 		if not self.timer.active:
-			if keys[pygame.K_UP]:
+			if keys[pygame.K_UP] or keys[pygame.K_w]:
 				self.index -= 1
 				self.timer.activate()
 
-			if keys[pygame.K_DOWN]:
+			if keys[pygame.K_DOWN] or keys[pygame.K_s]:
 				self.index += 1
 				self.timer.activate()
 
-			if keys[pygame.K_SPACE]:
+			if keys[pygame.K_SPACE] or keys[pygame.K_e]:
 				self.timer.activate()
 
 				# get item
@@ -123,10 +123,10 @@ class Menu:
 		if selected:
 			pygame.draw.rect(self.display_surface,'black',bg_rect,4,4)
 			if self.index <= self.sell_border: # sell
-				pos_rect = self.sell_text.get_rect(midleft = (self.main_rect.left + 150,bg_rect.centery))
+				pos_rect = self.sell_text.get_rect(midleft = (self.main_rect.left + 180,bg_rect.centery))
 				self.display_surface.blit(self.sell_text,pos_rect)
 			else: # buy
-				pos_rect = self.buy_text.get_rect(midleft = (self.main_rect.left + 150,bg_rect.centery))
+				pos_rect = self.buy_text.get_rect(midleft = (self.main_rect.left + 180,bg_rect.centery))
 				self.display_surface.blit(self.buy_text,pos_rect)
 
 	def update(self):

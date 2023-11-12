@@ -45,16 +45,16 @@ class Level:
         self.invenMenu = InventoryMenu(self.player, self.inventory_show)
         self.inventory_active = False
 
-        # menu
-        self.main_menu = MainMenu(self.player, self.menu_show)
-        self.menu_active = False
-
         # music
         self.success = pygame.mixer.Sound('../audio/success.wav')
         self.success.set_volume(0.3)
         self.music = pygame.mixer.Sound('../audio/music.mp3')
-        self.music.set_volume(0.3)
+        self.music.set_volume(0.48)
         self.music.play(loops=-1)
+
+        # menu
+        self.main_menu = MainMenu(self.player, self.menu_show, self.music)
+        self.menu_active = False
 
     def setup(self):
         tmx_data = load_pygame('../data/map.tmx')
@@ -112,7 +112,8 @@ class Level:
                     soil_layer=self.soil_layer,
                     toggle_shop=self.toggle_shop,
                     inventory_show=self.inventory_show,
-                    menu_show=self.menu_show)
+                    menu_show=self.menu_show,
+                    levelSetup=self.setup)
 
             if obj.name == 'Bed':
                 Interaction((obj.x, obj.y), (obj.width, obj.height),
@@ -216,6 +217,57 @@ class Level:
         # inventory
         if self.inventory_active:
             self.invenMenu.update()
+
+    def mySetup(self):
+        tmx_data = load_pygame('../data/map.tmx')
+
+        # house
+        for layer in ['HouseFloor', 'HouseFurnitureBottom']:
+            for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
+                Generic((x * TILE_SIZE, y * TILE_SIZE), surf,
+                        self.all_sprites, LAYERS['house bottom'])
+
+        for layer in ['HouseWalls', 'HouseFurnitureTop']:
+            for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
+                Generic((x * TILE_SIZE, y * TILE_SIZE), surf, self.all_sprites)
+
+        # Fence
+        for x, y, surf in tmx_data.get_layer_by_name('Fence').tiles():
+            Generic((x * TILE_SIZE, y * TILE_SIZE), surf,
+                    [self.all_sprites, self.collision_sprites])
+
+        # water
+        water_frames = import_folder('../graphics/water')
+        for x, y, surf in tmx_data.get_layer_by_name('Water').tiles():
+            Water((x * TILE_SIZE, y * TILE_SIZE),
+                  water_frames, self.all_sprites)
+
+        # trees
+        for obj in tmx_data.get_layer_by_name('Trees'):
+            Tree(
+                pos=(obj.x, obj.y),
+                surf=obj.image,
+                groups=[self.all_sprites,
+                        self.collision_sprites, self.tree_sprites],
+                name=obj.name,
+                player_add=self.player_add)
+
+        # wildflowers
+        for obj in tmx_data.get_layer_by_name('Decoration'):
+            WildFlower((obj.x, obj.y), obj.image, [
+                       self.all_sprites, self.collision_sprites])
+
+        # collion tiles
+        for x, y, surf in tmx_data.get_layer_by_name('Collision').tiles():
+            Generic((x * TILE_SIZE, y * TILE_SIZE),
+                    pygame.Surface((TILE_SIZE, TILE_SIZE)), self.collision_sprites)
+
+        Generic(
+            pos=(0, 0),
+            surf=pygame.image.load(
+                '../graphics/world/ground.png').convert_alpha(),
+            groups=self.all_sprites,
+            z=LAYERS['ground'])
 
 
 class CameraGroup(pygame.sprite.Group):
