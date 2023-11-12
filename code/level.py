@@ -215,8 +215,8 @@ class Level:
 
 		# weather
 		self.overlay.display()
-		# if self.raining and not self.shop_active:
-		# self.rain.update()
+		if self.raining and not self.shop_active:
+			self.rain.update()
 		self.sky.display(dt)
 
 		# transition overlay
