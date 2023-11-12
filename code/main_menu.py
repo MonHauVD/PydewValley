@@ -2,16 +2,20 @@ import pygame
 from settings import *
 from timer import Timer
 import sys
+import settings
 
 
 class MainMenu:
-	def __init__(self, player, toggle_menu, mainMusic):
+	def __init__(self, player, toggle_menu, mainMusic, musicVolume, sfxVolume, soil_layer, mainLevel):
 
 		# general setup
 		self.player = player
 		self.toggle_menu = toggle_menu
 		self.display_surface = pygame.display.get_surface()
 		self.font = pygame.font.Font('../font/LycheeSoda.ttf', 30)
+
+		self.soil_layer = soil_layer
+		self.mainLevel = mainLevel
 
 		# options
 		self.width = 400
@@ -20,10 +24,10 @@ class MainMenu:
 		self.mainMusic = mainMusic
 
 		# volume
-		self.volume = 48
-
+		self.musicVolume = musicVolume
+		self.sfxVolume = sfxVolume
 		# entries
-		self.menu_list = ['Volume', 'Save game', 'Load game', 'Exit', 'Exit and Save']
+		self.menu_list = ['Volume', 'SFX Volume', 'Save game', 'Load game', 'Exit', 'Exit and Save']
 		self.setup()
 
 		# movement
@@ -48,8 +52,8 @@ class MainMenu:
 
 		# volume text surface
 		
-		self.volume_plus = self.font.render(f'+', False, 'Black')
-		self.volume_minus = self.font.render(f'-', False, 'Black')
+		self.musicVolume_plus = self.font.render(f'+', False, 'Black')
+		self.musicVolume_minus = self.font.render(f'-', False, 'Black')
 
 	def input(self):
 		keys = pygame.key.get_pressed()
@@ -76,41 +80,58 @@ class MainMenu:
 			#  Volume
 			if self.index == 0:
 				if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-					if (self.volume > 0):
-						self.volume -= 4
+					if (self.musicVolume > 0):
+						self.musicVolume -= 4
 					else:
-						self.volume = 0
+						self.musicVolume = 0
 					self.setVolume()
 					self.timer.activate()
 				if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-					if (self.volume < 100):
-						self.volume += 4
+					if (self.musicVolume < 100):
+						self.musicVolume += 4
 					else:
-						self.volume = 100
+						self.musicVolume = 100
 					self.setVolume()
 					self.timer.activate()
-					
-			# Save game
+
+			#  SFX Volume
 			if self.index == 1:
+				if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+					if (self.sfxVolume > 0):
+						self.sfxVolume -= 4
+					else:
+						self.sfxVolume = 0
+					self.setVolume()
+					self.timer.activate()
+				if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+					if (self.sfxVolume < 100):
+						self.sfxVolume += 4
+					else:
+						self.sfxVolume = 100
+					self.setVolume()
+					self.timer.activate()
+
+			# Save game
+			if self.index == 2:
 				if keys[pygame.K_ESCAPE] or keys[pygame.K_e]:
 					self.player.saveGame()
 					self.toggle_menu()
 
 			# Load game
-			if self.index == 2:
+			if self.index == 3:
 				if keys[pygame.K_ESCAPE] or keys[pygame.K_e]:
 						# self.player.levelSetup()
 						self.player.loadGame()
 						self.toggle_menu()
 
 			# Exit
-			if self.index == 3:
+			if self.index == 4:
 				if keys[pygame.K_ESCAPE] or keys[pygame.K_e]:
 						pygame.quit()
 						sys.exit()
 
 			# Exit and Save
-			if self.index == 4:
+			if self.index == 5:
 				if keys[pygame.K_ESCAPE] or keys[pygame.K_e]:
 					self.player.saveGame()
 					self.toggle_menu()
@@ -119,7 +140,10 @@ class MainMenu:
 		
 
 	def setVolume(self):
-		self.mainMusic.set_volume(self.volume/100)
+		self.mainMusic.set_volume(self.musicVolume/100)
+		self.soil_layer.setSFXVolume(self.sfxVolume)
+		self.player.setSFXVolume(self.sfxVolume)
+		self.mainLevel.setSFXVolume(self.sfxVolume)
 		self.updateShowVolume()
 
 	def show_entry(self, text_surf, amount, top, selected):
@@ -137,13 +161,13 @@ class MainMenu:
 		# selected
 		if selected:
 			pygame.draw.rect(self.display_surface, 'black', bg_rect, 4, 4)
-			if self.index == 0:
-				pos_rect_right = self.volume_plus.get_rect(
+			if self.index == 0 or self.index == 1 :
+				pos_rect_right = self.musicVolume_plus.get_rect(
 					midleft=(self.main_rect.right - 75 + 56, bg_rect.centery))
-				self.display_surface.blit(self.volume_plus, pos_rect_right)
-				pos_rect_left = self.volume_minus.get_rect(
+				self.display_surface.blit(self.musicVolume_plus, pos_rect_right)
+				pos_rect_left = self.musicVolume_minus.get_rect(
 					midleft=(self.main_rect.right - 75 - 20, bg_rect.centery))
-				self.display_surface.blit(self.volume_minus, pos_rect_left)
+				self.display_surface.blit(self.musicVolume_minus, pos_rect_left)
 
 	def update(self):
 		self.input()
@@ -158,9 +182,17 @@ class MainMenu:
 
 	def updateShowVolume(self):	
 		# Volume
-		self.volume_text = self.font.render(f'{self.volume}%', False, 'Black')
+		self.musicVolume_text = self.font.render(f'{self.musicVolume}%', False, 'Black')
 		bg_rect = pygame.Rect(self.main_rect.left, self.main_rect.top, self.width,
 							  30 + (self.padding * 2))
-		pos_rect = self.volume_text.get_rect(
+		pos_rect = self.musicVolume_text.get_rect(
 					midleft=(self.main_rect.right - 75, bg_rect.centery))
-		self.display_surface.blit(self.volume_text, pos_rect)
+		self.display_surface.blit(self.musicVolume_text, pos_rect)
+
+		self.sfxVolume_text = self.font.render(f'{self.sfxVolume}%', False, 'Black')
+		sfx_bg_rect = pygame.Rect(self.main_rect.left, self.main_rect.top, self.width,
+							  130 + (self.padding * 2))
+		sfx_pos_rect = self.sfxVolume_text.get_rect(
+					midleft=(self.main_rect.right - 75, sfx_bg_rect.centery))
+		self.display_surface.blit(self.sfxVolume_text, sfx_pos_rect)
+

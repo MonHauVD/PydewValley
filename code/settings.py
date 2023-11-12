@@ -50,3 +50,6 @@ PURCHASE_PRICES = {
 	'corn': 4,
 	'tomato': 5
 }
+
+# sfxVolume = 0.3
+# musicVolume = 0.48

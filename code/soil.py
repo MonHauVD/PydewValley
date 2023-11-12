@@ -57,7 +57,7 @@ class Plant(pygame.sprite.Sprite):
 			self.rect = self.image.get_rect(midbottom = self.soil.rect.midbottom + pygame.math.Vector2(0,self.y_offset))
 
 class SoilLayer:
-	def __init__(self, all_sprites, collision_sprites):
+	def __init__(self, all_sprites, collision_sprites, sfxVolume):
 
 		# sprite groups
 		self.all_sprites = all_sprites
@@ -74,11 +74,12 @@ class SoilLayer:
 		self.create_hit_rects()
 
 		# sounds
+		self.sfxVolume = sfxVolume
 		self.hoe_sound = pygame.mixer.Sound('../audio/hoe.wav')
-		self.hoe_sound.set_volume(0.1)
+		self.hoe_sound.set_volume(self.sfxVolume/100)
 
 		self.plant_sound = pygame.mixer.Sound('../audio/plant.wav') 
-		self.plant_sound.set_volume(0.2)
+		self.plant_sound.set_volume(self.sfxVolume/100)
 
 	def create_soil_grid(self):
 		ground = pygame.image.load('../graphics/world/ground.png')
@@ -110,6 +111,7 @@ class SoilLayer:
 	def get_hit(self, point):
 		for rect in self.hit_rects:
 			if rect.collidepoint(point):
+				self.hoe_sound.set_volume(self.sfxVolume/100)
 				self.hoe_sound.play()
 
 				x = rect.x // TILE_SIZE
@@ -165,6 +167,7 @@ class SoilLayer:
 		planted_Flag = False
 		for soil_sprite in self.soil_sprites.sprites():
 			if soil_sprite.rect.collidepoint(target_pos):
+				self.plant_sound.set_volume(self.sfxVolume/100)
 				self.plant_sound.play()
 
 				x = soil_sprite.rect.x // TILE_SIZE
@@ -223,3 +226,6 @@ class SoilLayer:
 						pos = (index_col * TILE_SIZE,index_row * TILE_SIZE), 
 						surf = self.soil_surfs[tile_type], 
 						groups = [self.all_sprites, self.soil_sprites])
+					
+	def setSFXVolume(self, sfxVolume1):
+		self.sfxVolume = sfxVolume1

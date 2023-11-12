@@ -67,6 +67,8 @@ class Tree(Generic):
 	def __init__(self, pos, surf, groups, name, player_add):
 		super().__init__(pos, surf, groups)
 
+		self.sfxVolume = 20
+
 		# tree attributes
 		self.health = 5
 		self.alive = True
@@ -94,6 +96,7 @@ class Tree(Generic):
 		# remove an apple
 		if (self.health + 1 > 0):
 			# play sound
+			self.axe_sound.set_volume(self.sfxVolume/100)
 			self.axe_sound.play()
 			if len(self.apple_sprites.sprites()) > 0:
 				random_apple = choice(self.apple_sprites.sprites())
@@ -141,3 +144,6 @@ class Tree(Generic):
 			return self.apple_sprites.sprites()
 		return []
 		# return self.apple_sprites
+		
+	def setSFXVolume(self, sfxVolume1):
+		self.sfxVolume = sfxVolume1
