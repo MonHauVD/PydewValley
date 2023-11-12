@@ -51,14 +51,17 @@ class Level:
 		
 		# music
 		self.success = pygame.mixer.Sound('../audio/success.wav')
-		self.success.set_volume(self.sfxVolume)
+		self.success.set_volume(self.sfxVolume/100)
 		self.music = pygame.mixer.Sound('../audio/music.mp3')
-		self.music.set_volume(self.musicVolume)
+		self.music.set_volume(self.musicVolume/100)
 		self.music.play(loops=-1)
 
 		# menu
 		self.main_menu = MainMenu(self.player, self.menu_show, self.music, self.musicVolume, self.sfxVolume, self.soil_layer, self)
 		self.menu_active = False
+
+	def setSFXVolume(self, sfxVolume1):
+		self.sfxVolume = sfxVolume1
 
 	def setup(self):
 		tmx_data = load_pygame('../data/map.tmx')
@@ -134,8 +137,6 @@ class Level:
 			groups=self.all_sprites,
 			z=LAYERS['ground'])
 		
-	def setSFXVolume(self, sfxVolume1):
-		self.sfxVolume = sfxVolume1
 
 	def player_add(self, item):
 		if (item == "apple"):

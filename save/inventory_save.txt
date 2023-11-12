@@ -1,1 +1,1 @@
-{"item": {"wood": 20, "apple": 20, "corn": 20, "tomato": 20}, "seed": {"corn": 5, "tomato": 5}, "money": 200}
+{"item": {"wood": 20, "apple": 20, "corn": 20, "tomato": 20}, "seed": {"corn": 1, "tomato": 5}, "money": 200}

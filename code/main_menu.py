@@ -191,7 +191,7 @@ class MainMenu:
 
 		self.sfxVolume_text = self.font.render(f'{self.sfxVolume}%', False, 'Black')
 		sfx_bg_rect = pygame.Rect(self.main_rect.left, self.main_rect.top, self.width,
-							  130 + (self.padding * 2))
+							  140 + (self.padding * 2))
 		sfx_pos_rect = self.sfxVolume_text.get_rect(
 					midleft=(self.main_rect.right - 75, sfx_bg_rect.centery))
 		self.display_surface.blit(self.sfxVolume_text, sfx_pos_rect)
