@@ -144,6 +144,9 @@ class MainMenu:
 		self.soil_layer.setSFXVolume(self.sfxVolume)
 		self.player.setSFXVolume(self.sfxVolume)
 		self.mainLevel.setSFXVolume(self.sfxVolume)
+		self.success = pygame.mixer.Sound('../audio/success.wav')
+		self.success.set_volume(self.sfxVolume/100)
+		self.success.play()
 		self.updateShowVolume()
 
 	def show_entry(self, text_surf, amount, top, selected):
