@@ -14,7 +14,7 @@ from inventoryMenu import InventoryMenu
 from main_menu import MainMenu
 
 
-class Level:
+class Level_Load:
 	def __init__(self, musicVolume0 = 48, sfxVolume0 = 20):
 		
 		# volume
@@ -129,7 +129,8 @@ class Level:
 			if obj.name == 'Trader':
 				Interaction((obj.x, obj.y), (obj.width, obj.height),
 							self.interaction_sprites, obj.name)
-
+		self.player.loadGame()
+		
 		Generic(
 			pos=(0, 0),
 			surf=pygame.image.load(
