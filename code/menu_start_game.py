@@ -203,7 +203,7 @@ class Game:
 				PLAY_NEW_BUTTON = Button(image=pygame.image.load("assets/BackgroundButton.png"), pos=(640, 200), 
 									text_input="PLAY NEW GAME", font=get_font(40), base_color="#d7fcd4", hovering_color="White")
 				PLAY_LOAD_BUTTON = Button(image=pygame.image.load("assets/BackgroundButton.png"), pos=(640, 300), 
-									text_input="LOAD SAVE GAME", font=get_font(40), base_color="#d7fcd4", hovering_color="White")
+									text_input="LOAD SAVED GAME", font=get_font(40), base_color="#d7fcd4", hovering_color="White")
 				OPTIONS_BUTTON = Button(image=pygame.image.load("assets/BackgroundButton.png"), pos=(640, 400), 
 									text_input="OPTIONS", font=get_font(40), base_color="#d7fcd4", hovering_color="White")
 				ABOUT_BUTTON = Button(image=pygame.image.load("assets/BackgroundButton.png"), pos=(640, 500), 
