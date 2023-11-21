@@ -193,8 +193,12 @@ class Game:
 
 				MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-				MENU_TEXT = get_font(60).render("MAIN MENU", True, "#aa7959")
+				MENU_TEXT = get_font(80).render("PYDEW VALLEY", True, "#835d43")
 				MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+
+				INFO2_TEXT = get_font(20).render("Made by group 8 Python", True, "#835d43")
+				INFO2_RECT = INFO2_TEXT.get_rect(center=(1160, 700))
+				self.screen.blit(INFO2_TEXT, INFO2_RECT)
 
 				PLAY_NEW_BUTTON = Button(image=pygame.image.load("assets/BackgroundButton.png"), pos=(640, 200), 
 									text_input="PLAY NEW GAME", font=get_font(40), base_color="#d7fcd4", hovering_color="White")
