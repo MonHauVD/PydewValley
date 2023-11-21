@@ -110,16 +110,20 @@ class Game:
 					if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
 						Game.main_menu(self)
 					if Volume_Dec.checkForInput(OPTIONS_MOUSE_POS):
-						self.musicVolume -= 4
+						if (self.musicVolume > 0):
+							self.musicVolume -= 4
 						updateVolumeText()
 					if Volume_Inc.checkForInput(OPTIONS_MOUSE_POS):
-						self.musicVolume += 4
+						if (self.musicVolume < 100):
+							self.musicVolume += 4
 						updateVolumeText()
 					if SFXVolume_Dec.checkForInput(OPTIONS_MOUSE_POS):
-						self.sfxVolume -= 4
+						if(self.sfxVolume > 0):
+							self.sfxVolume -= 4
 						updateVolumeText()
 					if SFXVolume_Inc.checkForInput(OPTIONS_MOUSE_POS):
-						self.sfxVolume += 4
+						if(self.sfxVolume < 100):
+							self.sfxVolume += 4
 						updateVolumeText()
 
 			pygame.display.update()
