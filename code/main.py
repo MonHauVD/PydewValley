@@ -2,9 +2,10 @@ import pygame
 import sys
 from settings import *
 from level import Level
+from menu_start_game import Game
 
 
-class Game:
+class Game_old:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -23,7 +24,10 @@ class Game:
             self.level.run(dt)
             pygame.display.update()
 
-
 if __name__ == '__main__':
-    game = Game()
-    game.run()
+	game = Game()
+	game.main_menu()
+     
+# if __name__ == '__main__':
+#     game = Game_old()
+#     game.run()

@@ -163,8 +163,8 @@ class Game:
 			About_BACK = Button(image=None, pos=(640, 600), 
 								text_input="BACK", font=get_font(75), base_color="#cf936a", hovering_color="White")
 			
-			INFO2_TEXT = get_font(30).render("Referenced by CleanCode", True, "#5d4230")
-			INFO2_RECT = INFO2_TEXT.get_rect(center=(1100, 700))
+			INFO2_TEXT = get_font(20).render("Referenced by CleanCode", True, "#91a155")
+			INFO2_RECT = INFO2_TEXT.get_rect(center=(1160, 700))
 			self.screen.blit(INFO2_TEXT, INFO2_RECT)
 
 			About_BACK.changeColor(About_MOUSE_POS)
@@ -251,7 +251,6 @@ class Game:
 						sys.exit()
 
 			pygame.display.update()
-
 
 if __name__ == '__main__':
 	game = Game()
